@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*" %>
+<%@ include file="../connDB.jsp" %>
 
 <%
 String id = request.getParameter("id");
@@ -15,12 +16,7 @@ if(request.getMethod().equalsIgnoreCase("POST")){
     String email = request.getParameter("email");
 
     try{
-        Class.forName("org.postgresql.Driver");
-
-        Connection conn = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","hart80"
-        );
+    	
 
         Statement st = conn.createStatement();
 
