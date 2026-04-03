@@ -22,7 +22,7 @@ try{
 <tr>
     <td><%= rs.getString("num_etudiant") %></td>
     <td><%= rs.getString("nom") %></td>
-    <td><%= rs.getString("prenom") %></td>
+    <td><%= rs.getString("prenoms") %></td>
     <td><%= rs.getString("niveau") %></td>
     <td><%= rs.getString("adr_email") %></td>
 

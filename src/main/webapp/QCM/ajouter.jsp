@@ -4,5 +4,5 @@
     Prenoms: <input type="text" name="prenoms"><br>
     Email: <input type="text" name="email"><br>
 
-    <input type="submit" value="Ajouter">
+    <input type="submit" value="supprimer">
 </form>
