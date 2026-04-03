@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*, util.connDB" %>
+<%@ page import="java.sql.*" %>
+
 
 <%
 Connection conn = connDB.getConnection();
