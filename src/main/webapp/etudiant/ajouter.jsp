@@ -30,7 +30,7 @@ if(request.getMethod().equalsIgnoreCase("POST")){
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","1234"
+            "postgres","hart80"
         );
 
         Statement st = conn.createStatement();
