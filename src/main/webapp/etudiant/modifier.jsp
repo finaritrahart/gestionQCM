@@ -19,7 +19,7 @@ if(request.getMethod().equalsIgnoreCase("POST")){
 
         Connection conn = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","1234"
+            "postgres","hart80"
         );
 
         Statement st = conn.createStatement();
@@ -27,7 +27,7 @@ if(request.getMethod().equalsIgnoreCase("POST")){
         String sql = "UPDATE etudiant SET "
         		
                 + "nom='"+nom+"', "
-                + "prenom='"+prenoms+"', "
+                + "prenoms='"+prenoms+"', "
                 + "niveau='"+niveau+"', "
                 + "adr_email='"+email+"' "
                 + "WHERE num_etudiant='"+num+"'";
@@ -77,7 +77,7 @@ try{
 
     Prenoms:
     <input type="text" name="prenoms"
-           value="<%= rs.getString("prenom") %>"><br>
+           value="<%= rs.getString("prenoms") %>"><br>
 
     Niveau:
     <select name="niveau">
@@ -94,7 +94,7 @@ try{
     <input type="text" name="email"
            value="<%= rs.getString("adr_email") %>"><br>
 
-    <button type="submit" value="Modifier">
+    <input type="submit" value="Modifier">
 </form>
 
 <%

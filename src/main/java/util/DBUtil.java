@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBUtil {
 
-	 private static final String URL = "jdbc:postgresql://localhost:5432/gestionQCM";
+	 private static final String URL = "jdbc:postgresql://localhost:5432/gestQCM";
 	 private static final String USER =  "postgres";
 	 private static final String PASS ="1234";
 	 

@@ -1,5 +1,5 @@
 <form method="post">
-    Numero: <input type="text" name="num"><br>
+    <label>Numero: </label><input type="text" name="num"><br>
     Nom: <input type="text" name="nom"><br>
     Prenoms: <input type="text" name="prenoms"><br>
     Niveau:
@@ -30,7 +30,7 @@ if(request.getMethod().equalsIgnoreCase("POST")){
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(
             "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","1234"
+            "postgres","hart80"
         );
 
         Statement st = conn.createStatement();
