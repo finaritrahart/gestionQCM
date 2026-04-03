@@ -1,7 +1,13 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, util.DBUtil" %>
+
+
 
 <%
 String id = request.getParameter("id");
+
+Connection conn = null;
+PreparedStatement ps = null;
+ResultSet rs = null;
 
 /* ===========================
    PARTIE UPDATE (POST)
@@ -15,32 +21,29 @@ if(request.getMethod().equalsIgnoreCase("POST")){
     String email = request.getParameter("email");
 
     try{
-        Class.forName("org.postgresql.Driver");
+    	conn = DBUtil.getConnection();
+    	
+    	String sql = "UPDATE etudiant SET nom=?, prenoms=?, niveau=?, adr_email=? WHERE num_etudiant=? ";
 
-        Connection conn = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","1234"
-        );
+        ps = conn.prepareStatement(sql);
 
-        Statement st = conn.createStatement();
-
-        String sql = "UPDATE etudiant SET "
-        		
-                + "nom='"+nom+"', "
-                + "prenoms='"+prenoms+"', "
-                + "niveau='"+niveau+"', "
-                + "adr_email='"+email+"' "
-                + "WHERE num_etudiant='"+num+"'";
-
-        st.executeUpdate(sql);
+        ps.setString(1, nom);
+        ps.setString(2, prenoms);
+        ps.setString(3, niveau);
+        ps.setString(4, email);
+        ps.setString(5, num);
+        
+        ps.executeUpdate();
 
         // Redirection après modification
         response.sendRedirect("liste.jsp");
-
-        conn.close();
+        return;
 
     }catch(Exception e){
-        out.println("Erreur : " + e.getMessage());
+        out.println("Erreur Update: " + e.getMessage());
+    }finally{
+        try { if(ps != null) ps.close(); } catch(Exception e){}
+        try { if(conn != null) conn.close(); } catch(Exception e){}
     }
 }
 
@@ -49,18 +52,12 @@ if(request.getMethod().equalsIgnoreCase("POST")){
    PARTIE AFFICHAGE (GET)
    =========================== */
 try{
-    Class.forName("org.postgresql.Driver");
-
-    Connection conn = DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/gestQCM",
-        "postgres","1234"
-    );
-
-    Statement st = conn.createStatement();
-    ResultSet rs = st.executeQuery(
-        "SELECT * FROM etudiant WHERE num_etudiant='"+id+"'"
-    );
-
+    conn = DBUtil.getConnection();
+	String sql = "SELECT * FROM etudiant WHERE num_etudiant=?";
+    ps = conn.prepareStatement(sql);
+    ps.setString(1, id);
+    
+    rs = ps.executeQuery();
     if(rs.next()){
 %>
 
@@ -98,11 +95,14 @@ try{
 </form>
 
 <%
+    } else {
+        out.println("Étudiant introuvable.");
     }
 
-    conn.close();
-
 }catch(Exception e){
-    out.println("Erreur : " + e.getMessage());
-}
-%>
+    out.println("Erreur SELECT : " + e.getMessage());
+}finally{
+    try { if(rs != null) rs.close(); } catch(Exception e){}
+    try { if(ps != null) ps.close(); } catch(Exception e){}
+    try { if(conn != null) conn.close(); } catch(Exception e){}
+}%>
