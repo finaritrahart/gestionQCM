@@ -1,5 +1,8 @@
-<%@ page import="java.sql.*" %>
-<%@ include file="../connDB.jsp" %>
+<%@ page import="java.sql.*, util.connDB" %>
+
+<%
+Connection conn = connDB.getConnection();
+%>
 
 <%
 String id = request.getParameter("id");
