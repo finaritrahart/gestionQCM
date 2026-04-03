@@ -1,0 +1,28 @@
+# Eclipse
+.metadata/
+.settings/
+
+# Java / build
+bin/
+build/
+target/
+out/
+*.class
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+
+# Tomcat temp
+work/
+temp/
+
+# IDE
+.idea/
+*.iml
