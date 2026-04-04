@@ -81,79 +81,64 @@
 
 <%
 // Récupération du paramètre (recherche.jsp envoie "num" pas "id")
-String num = request.getParameter("num");
+String num = request.getParameter("id");
 
 // Si pas de numéro, retour à la liste
 if (num == null || num.trim().isEmpty()) {
     response.sendRedirect("liste.jsp");
     return;
 }
+Connection conn = null;
+PreparedStatement ps = null;
+ResultSet rs = null;
 
-// Traitement du formulaire POST (modification)
-if (request.getMethod().equalsIgnoreCase("POST")) {
-    
+/* ===========================
+   PARTIE UPDATE (POST)
+   =========================== */
+if(request.getMethod().equalsIgnoreCase("POST")){
     String nom = request.getParameter("nom");
     String prenoms = request.getParameter("prenoms");
     String niveau = request.getParameter("niveau");
     String email = request.getParameter("email");
-    String numOriginal = request.getParameter("num");
-    
-    // Validation simple
-    if (nom == null || nom.trim().isEmpty() ||
-        prenoms == null || prenoms.trim().isEmpty() ||
-        email == null || email.trim().isEmpty()) {
-        out.println("<p class='error'>❌ Tous les champs sont obligatoires !</p>");
-    } else {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+
+    try{
+    	conn = DBUtil.getConnection();
+    	
+    	String sql = "UPDATE etudiant SET nom=?, prenoms=?, niveau=?, adr_email=? WHERE num_etudiant=? ";
+
+        ps = conn.prepareStatement(sql);
+
+        ps.setString(1, nom);
+        ps.setString(2, prenoms);
+        ps.setString(3, niveau);
+        ps.setString(4, email);
+        ps.setString(5, num);
         
-        try {
-            conn = DBUtil.getConnection();
-            
-            // Utilisation de PreparedStatement pour éviter les injections SQL
-            String sql = "UPDATE etudiant SET nom=?, prenom=?, niveau=?, adr_email=? WHERE num_etudiant=?";
-            
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, nom);
-            pstmt.setString(2, prenoms);
-            pstmt.setString(3, niveau);
-            pstmt.setString(4, email);
-            pstmt.setString(5, numOriginal);
-            
-            int result = pstmt.executeUpdate();
-            
-            if (result > 0) {
-                // Redirection vers la liste avec message de succès
-                response.sendRedirect("liste.jsp?msg=updated");
-            } else {
-                out.println("<p class='error'>❌ Erreur lors de la modification</p>");
-            }
-            
-        } catch (Exception e) {
-            out.println("<p class='error'>❌ Erreur : " + e.getMessage() + "</p>");
-        } finally {
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
-            if (conn != null) try { conn.close(); } catch(SQLException e) {}
-        }
+        ps.executeUpdate();
+
+        // Redirection apr�s modification
+        response.sendRedirect("liste.jsp");
+        return;
+
+    }catch(Exception e){
+        out.println("Erreur Update: " + e.getMessage());
+    }finally{
+        try { if(ps != null) ps.close(); } catch(Exception e){}
+        try { if(conn != null) conn.close(); } catch(Exception e){}
     }
 }
 
 /* ===========================
    PARTIE AFFICHAGE (GET)
    =========================== */
-Connection conn = null;
-PreparedStatement pstmt = null;
-ResultSet rs = null;
-
-try {
+try{
     conn = DBUtil.getConnection();
+	String sql = "SELECT * FROM etudiant WHERE num_etudiant=?";
+    ps = conn.prepareStatement(sql);
+    ps.setString(1, num);
     
-    String sql = "SELECT * FROM etudiant WHERE num_etudiant = ?";
-    pstmt = conn.prepareStatement(sql);
-    pstmt.setString(1, num);
-    rs = pstmt.executeQuery();
-    
-    if (rs.next()) {
+    rs = ps.executeQuery();
+    if(rs.next()){
 %>
 
         <form method="post">
@@ -165,7 +150,7 @@ try {
             <input type="text" name="nom" value="<%= rs.getString("nom") %>" required><br>
 
             <label>Prénoms :</label>
-            <input type="text" name="prenoms" value="<%= rs.getString("prenom") %>" required><br>
+            <input type="text" name="prenoms" value="<%= rs.getString("prenoms") %>" required><br>
 
             <label>Niveau :</label>
             <select name="niveau">
@@ -185,18 +170,16 @@ try {
 
 <%
     } else {
-        out.println("<p class='error'>❌ Étudiant non trouvé</p>");
-        out.println("<a href='liste.jsp'>Retour à la liste</a>");
+        out.println("�tudiant introuvable.");
     }
-    
-} catch (Exception e) {
-    out.println("<p class='error'>❌ Erreur : " + e.getMessage() + "</p>");
-} finally {
-    if (rs != null) try { rs.close(); } catch(SQLException e) {}
-    if (pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
-    if (conn != null) try { conn.close(); } catch(SQLException e) {}
-}
-%>
+
+}catch(Exception e){
+    out.println("Erreur SELECT : " + e.getMessage());
+}finally{
+    try { if(rs != null) rs.close(); } catch(Exception e){}
+    try { if(ps != null) ps.close(); } catch(Exception e){}
+    try { if(conn != null) conn.close(); } catch(Exception e){}
+}%>
     </div>
 </body>
 </html>
