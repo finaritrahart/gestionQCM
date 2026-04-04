@@ -11,7 +11,7 @@ try{
     Class.forName("org.postgresql.Driver");
     Connection conn = DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/gestQCM",
-        "postgres","hart80"
+        "postgres","1234"
     );
 
     Statement st = conn.createStatement();
@@ -22,7 +22,7 @@ try{
 <tr>
     <td><%= rs.getString("num_etudiant") %></td>
     <td><%= rs.getString("nom") %></td>
-    <td><%= rs.getString("prenom") %></td>
+    <td><%= rs.getString("prenoms") %></td>
     <td><%= rs.getString("niveau") %></td>
     <td><%= rs.getString("adr_email") %></td>
 
