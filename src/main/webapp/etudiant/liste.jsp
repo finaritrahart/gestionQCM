@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, util.DBUtil" %>
 
 <table border="1">
 <tr>
@@ -8,12 +9,8 @@
 
 <%
 try{
-    Class.forName("org.postgresql.Driver");
-    Connection conn = DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/gestQCM",
-        "postgres","1234"
-    );
-
+    Connection conn = null;
+    conn = DBUtil.getConnection();
     Statement st = conn.createStatement();
     ResultSet rs = st.executeQuery("SELECT * FROM etudiant");
 
