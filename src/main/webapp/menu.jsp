@@ -1,198 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Questionnaires - Menu Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Gestion QCM & Examens</title>
     <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
-        
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
-        }
-        
-        h1 {
             text-align: center;
-            color: white;
-            margin-bottom: 10px;
-            font-size: 36px;
         }
-        
-        .subtitle {
-            text-align: center;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 40px;
-            font-size: 18px;
-        }
-        
-        .grid {
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        .subtitle { color: #555; font-size: 1.2em; margin-bottom: 60px; }
+
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        
+
         .card {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px;
+            padding: 50px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
             cursor: pointer;
         }
-        
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
-        
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+        }
         .card h3 {
-            color: #333;
-            margin-top: 0;
-            font-size: 24px;
-            border-bottom: 3px solid #667eea;
-            display: inline-block;
-            padding-bottom: 5px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
         }
-        
         .card p {
             color: #666;
-            line-height: 1.6;
-            margin: 15px 0;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
-        
-        .card .icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-        
         .btn {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 10px 20px;
+            padding: 14px 32px;
+            border-radius: 50px;
             text-decoration: none;
-            border-radius: 8px;
-            margin-top: 15px;
-            transition: opacity 0.3s ease;
-            border: none;
-            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: 0.3s;
         }
-        
-        .btn:hover {
-            opacity: 0.9;
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .btn-info {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-        }
-        
-        .stats {
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 30px;
-            text-align: center;
+        .btn-examen {
+            background: #27ae60;
             color: white;
         }
-        
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            h1 { font-size: 28px; }
+	        .btn-notes {
+	       margin-top:10px; 
+	    background: #f39c12;
+	    color: white;
+	    padding: 16px 32px;
+	    border-radius: 50px;
+	    text-decoration: none;
+	    font-weight: bold;
+	    display: inline-block;
+	    text-align: center;
+	    transition: 0.3s;
+		}
+		
+		.btn-notes:hover {
+		    background: #e67e22;
+		    transform: scale(1.05);
+		}
+        .btn-admin {
+            background: #8e44ad;
+            color: white;
         }
+        .btn:hover { transform: scale(1.08); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📚 Gestion des Questionnaires</h1>
-        <div class="subtitle">Plateforme de gestion des QCM et examens</div>
+
+<div class="container">
+    <h1>📚 Bienvenue sur la Plateforme</h1>
+    <p class="subtitle">Choisissez votre espace</p>
+
+    <div class="main-content">
         
-        <div class="grid">
-            <!-- Carte Étudiants -->
-            <div class="card">
-                <div class="icon">👨‍🎓</div>
-                <h3>Gestion des Étudiants</h3>
-                <p>Ajouter, modifier, supprimer et rechercher des étudiants. Gestion des inscriptions par niveau.</p>
-                <a href="etudiant/ajouter.jsp" class="btn">➕ Ajouter un étudiant</a>
-                <a href="etudiant/liste.jsp" class="btn btn-info">📋 Liste des étudiants</a>
-                <a href="etudiant/recherche.jsp" class="btn btn-secondary">🔍 Rechercher</a>
-            </div>
-            
-            <!-- Carte QCM -->
-            <div class="card">
-                <div class="icon">📝</div>
-                <h3>Gestion des QCM</h3>
-                <p>Créer des questions à choix multiples, modifier et organiser par niveau (L1, L2, L3, M1, M2).</p>
-                <a href="QCM/ajouter.jsp" class="btn">➕ Ajouter une question</a>
-                <a href="QCM/liste.jsp" class="btn btn-info">📋 Liste des QCM</a>
-            </div>
-            
-            <!-- Carte Examen -->
-            <div class="card">
-                <div class="icon">✍️</div>
-                <h3>Passer un Examen</h3>
-                <p>Lancer un examen avec 10 questions aléatoires. Calcul automatique de la note sur 10.</p>
-                <a href="examen/passerExamen.jsp" class="btn btn-secondary">🎯 Commencer l'examen</a>
-                <a href="examen/listeNotes" class="btn btn-info">📊 Voir les notes</a>
-            </div>
-            
-            <!-- Carte Statistiques -->
-            <div class="card">
-                <div class="icon">📈</div>
-                <h3>Classement & Statistiques</h3>
-                <p>Consulter le classement des étudiants par ordre de mérite et les statistiques par niveau.</p>
-                <a href="examen/classement.jsp" class="btn btn-info">🏆 Voir le classement</a>
-                <a href="etudiant/stats_niveau.jsp" class="btn">📊 Stats par niveau</a>
+        <!-- Partie gauche : Les deux cartes -->
+        <div class="left-panel">
+            <div class="menu-grid">
+                <!-- Carte Administration -->
+                <div class="card" onclick="goToAdmin()">
+                    <div class="icon">⚙️</div>
+                    <h3>Espace Administration</h3>
+                    <p>Gestion complète des étudiants<br>et des questions QCM</p>
+                    <span class="btn btn-admin">🔑 Accéder à l'administration</span>
+                </div>
+                <!-- Carte Examen -->
+                <div class="card" onclick="window.location.href='examen/passerExamen.jsp'">
+                    <div class="icon">✍️</div>
+                    <h3>Passer un Examen</h3>
+                    <br><br><br><br>
+                    <span class="btn btn-examen">🎯 Commencer l'examen</span>
+                </div>
+
+                
             </div>
         </div>
-        
-        <div class="stats">
-            <strong>📌 Fonctionnalités disponibles :</strong><br>
-            ✓ CRUD Étudiants & QCM &nbsp;|&nbsp;
-            ✓ Recherche par LIKE &nbsp;|&nbsp;
-            ✓ Examen aléatoire &nbsp;|&nbsp;
-            ✓ Envoi d'email &nbsp;|&nbsp;
-            ✓ Classement par mérite
-        </div>
-        
-        <div class="footer">
-            &copy; 2024 - Gestion des Questionnaires | Projet JSP
+
+        <!-- Partie droite : Notes & Classements avec image -->
+        <div class="right-panel">
+            <div class="notes-card">
+                <div class="notes-overlay">
+                    <a href="examen/listeNotes.jsp" class="btn btn-notes">
+                        Voir les notes et classements
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <script>
-        // Animation optionnelle au survol
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Ne pas déclencher si on clique sur un lien
-                if (e.target.tagName !== 'A') {
-                    const firstLink = card.querySelector('a');
-                    if (firstLink) window.location.href = firstLink.href;
-                }
-            });
-        });
-    </script>
+</div>
+
+
+<script>
+function goToAdmin() {
+    // Vérifier si déjà connecté
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        window.location.href = 'menuAdmin.jsp';   // on créera ce fichier après
+    } else {
+        window.location.href = 'login.jsp';
+    }
+}
+</script>
+
 </body>
 </html>
