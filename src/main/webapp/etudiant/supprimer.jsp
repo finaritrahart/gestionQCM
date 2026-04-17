@@ -1,15 +1,18 @@
-<%@ page import="java.sql.*" %>
+<<<<<<< .merge_file_ovfY71
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, util.DBUtil" %>
 
+
+=======
+<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, util.DBUtil" %>
+>>>>>>> .merge_file_hP7ENQ
 <%
 String id = request.getParameter("id");
 
 try{
-    Class.forName("org.postgresql.Driver");
-    Connection conn = DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/gestQCM",
-        "postgres","hart80"
-    );
-
+    Connection conn = null;
+    conn = DBUtil.getConnection();
     Statement st = conn.createStatement();
     st.executeUpdate("DELETE FROM etudiant WHERE num_etudiant='"+id+"'");
 

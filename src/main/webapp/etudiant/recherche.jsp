@@ -173,7 +173,7 @@
                     sql.append(" AND niveau = ?");
                 }
                 
-                sql.append(" ORDER BY nom, prenom");
+                sql.append(" ORDER BY nom, prenoms");
                 
                 pstmt = conn.prepareStatement(sql.toString());
                 int index = 1;
@@ -232,7 +232,7 @@
                     count++;
                     String num = rs.getString("num_etudiant");
                     String nom = rs.getString("nom");
-                    String prenoms = rs.getString("prenom");
+                    String prenoms = rs.getString("prenoms");
                     String niveau = rs.getString("niveau");
                     String email = rs.getString("adr_email");
                 %>

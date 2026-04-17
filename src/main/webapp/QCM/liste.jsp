@@ -34,7 +34,7 @@
 <h2>📋 Liste des Questions QCM</h2>
 
 <a href="ajouter.jsp" class="add-btn">➕ Ajouter un nouveau QCM</a>
-<a href="../menu.jsp" class="add-btn" style="background-color: #555;">🏠 Retour au menu</a>
+<a href="..\menu.jsp" class="add-btn" style="background-color: #555;">🏠 Retour au menu</a>
 
 <%
 // Gestion de la suppression
