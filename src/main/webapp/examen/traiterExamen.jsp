@@ -482,7 +482,7 @@
                 %>
                     <div class="student-info">
                         <div class="alert-error" style="background:#fee; color:#c33; padding:15px; border-radius:10px;">
-                            ❌ Erreur lors du traitement : <%= e.getMessage() %>
+                            ❌ Vous avez déja passer cet examen; veuillez consulter votre note pour cet année
                         </div>
                     </div>
                 <%
