@@ -16,6 +16,7 @@
 </form>
 
 <%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, util.DBUtil" %>
 
 <%
 if(request.getMethod().equalsIgnoreCase("POST")){
@@ -27,12 +28,8 @@ if(request.getMethod().equalsIgnoreCase("POST")){
     String adr_email = request.getParameter("email");
 
     try{
-        Class.forName("org.postgresql.Driver");
-        Connection conn = DriverManager.getConnection(
-            "jdbc:postgresql://localhost:5432/gestQCM",
-            "postgres","1234"
-        );
-
+        Connection conn = null;
+        conn = DBUtil.getConnection();
         Statement st = conn.createStatement();
 
         String sql = "INSERT INTO etudiant VALUES('"+num_etudiant+"','"+nom+"','"+prenom+"','"+niveau+"','"+adr_email+"')";

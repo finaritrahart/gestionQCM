@@ -154,7 +154,7 @@
                 <h3>Passer un Examen</h3>
                 <p>Lancer un examen avec 10 questions aléatoires. Calcul automatique de la note sur 10.</p>
                 <a href="examen/passerExamen.jsp" class="btn btn-secondary">🎯 Commencer l'examen</a>
-                <a href="" class="btn btn-info">📊 Voir les notes</a>
+                <a href="examen/listeNotes" class="btn btn-info">📊 Voir les notes</a>
             </div>
             
             <!-- Carte Statistiques -->

@@ -1,15 +1,11 @@
 <%@ page import="java.sql.*" %>
-
+<%@ page import="java.sql.*, util.DBUtil" %>
 <%
 String id = request.getParameter("id");
 
 try{
-    Class.forName("org.postgresql.Driver");
-    Connection conn = DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/gestQCM",
-        "postgres","1234"
-    );
-
+    Connection conn = null;
+    conn = DBUtil.getConnection();
     Statement st = conn.createStatement();
     st.executeUpdate("DELETE FROM etudiant WHERE num_etudiant='"+id+"'");
 
