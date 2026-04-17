@@ -157,14 +157,7 @@
                 <a href="examen/listeNotes" class="btn btn-info">📊 Voir les notes</a>
             </div>
             
-            <!-- Carte Statistiques -->
-            <div class="card">
-                <div class="icon">📈</div>
-                <h3>Classement & Statistiques</h3>
-                <p>Consulter le classement des étudiants par ordre de mérite et les statistiques par niveau.</p>
-                <a href="examen/classement.jsp" class="btn btn-info">🏆 Voir le classement</a>
-                <a href="etudiant/stats_niveau.jsp" class="btn">📊 Stats par niveau</a>
-            </div>
+           
         </div>
         
         <div class="stats">
